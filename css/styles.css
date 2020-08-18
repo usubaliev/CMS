@@ -1,0 +1,12 @@
+/* custom styles */
+
+.pager li .current {
+    background: #eee;
+    cursor: default;
+}
+
+.inlineError_Warning {
+    font-size: 13px;
+    padding: 3px 0;
+    color: #cd5c5c;
+}
