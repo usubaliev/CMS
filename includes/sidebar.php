@@ -40,7 +40,7 @@
 
             <?php else: ?> 
  
-            <h4>Login</h4>
+            <h4>Login</h4>  
             <form method="post">
                 <div class="form-group">
                     <input name="username" type="text" class="form-control" placeholder="Username">
