@@ -1,9 +1,14 @@
+<?php  use PHPMailer\PHPMailer\PHPMailer; ?>
+
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
-
+<?php 
+    require './phpmailer/vendor/Autoload.php';
+    require './classes/config.php';
+?>
 <?php 
     if (!ifItIsMethod('get') && !isset($_GET['forgot'])) { 
-        //path without uniqid redirects to index immediatly
+        //path without uniqid redirects to index immediately
         redirect('index');
     }
     
@@ -19,7 +24,34 @@
                 if ($stmt = mysqli_prepare($connection, "UPDATE users SET token='{$token}' WHERE user_email= ?")){
                     mysqli_stmt_bind_param($stmt, "s", $email);
                     mysqli_stmt_execute($stmt);
-                    mysqli_stmt_close($stmt);
+                    mysqli_stmt_close($stmt); 
+                    
+                    // Require phpmailer class config
+                    // Configure PHPMAILER
+
+                    $mail = new PHPMailer();
+                    
+                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER; 
+                    $mail->isSMTP();                        
+                    $mail->Host       = Config::SMTP_HOST;                 
+                    $mail->Username   = Config::SMTP_USER;     
+                    $mail->Password   = Config::SMTP_PASSWORD; 
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = Config::SMTP_PORT;
+                    $mail->SMTPAuth   = true;  
+                    $mail->isHTML(true);
+
+                    $mail->setFrom('murat@phpcmsproject.com', 'Murat');
+                    $mail->addAddress($email);
+                    $mail->Subject = 'Test email from PHP CMS Project';
+                    $mail->Body = '<h2>Email body </h2>';
+
+                    if ($mail->send()) {
+                        echo "IT WAS SENT";
+                    } else {
+                        echo "NOT SENT";
+                    }
+
                 } 
             }
         }
