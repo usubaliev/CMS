@@ -2,3 +2,8 @@ _database file/cms.sql
 cms.rar
 output_test.js
 cms.rar
+
+/vendor/
+composer.json
+composer.lock
+/phpmailer/
