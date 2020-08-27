@@ -1,0 +1,17 @@
+{
+    "name": "murat/cms",
+    "require": {
+        "phpmailer/phpmailer": "^6.1"
+    },
+    "require-dev": {
+        "phpmailer/phpmailer": "6.1"
+    },
+    "autoload": {
+        "classmap": ["classes"]
+    },
+
+    "authors": [{
+        "name": "usubaliev",
+        "email": "usubaliyev@gmail.com"
+    }]
+}

@@ -1,7 +1,6 @@
     <?php include "includes/db.php"; ?>
     <?php include "includes/header.php"; ?>
     <?php include "includes/navigation.php"; ?>
-    <?php include "admin/functions.php"; ?>
     
  
     <!-- Page Content -->
@@ -26,7 +25,7 @@
                     $count = mysqli_num_rows($search_query);
                     
                     if ($count == 0) {
-                        echo "<h1>no results</h1>";
+                        echo "<div class='alert alert-warning' role='alert'><b>Sorry, nothing found.</b></div> ";
                     } else {
                         
                         while ($row = mysqli_fetch_assoc($search_query)) {

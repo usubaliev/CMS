@@ -69,10 +69,8 @@
                 <li class='<?php echo $contact_class;?>'>
                     <a href="/cms/contact">Contact Us</a>
                 </li>
-                
-
-               
-           <?php
+            
+            <?php
                 if(isset($_SESSION['user_role'])) {
                     if(isset($_GET['p_id'])) {
                         $the_post_id = escape($_GET['p_id']);

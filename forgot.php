@@ -3,18 +3,19 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 <?php 
-    require './phpmailer/vendor/Autoload.php';
+    require './phpmailer/vendor/autoload.php';
     require './classes/config.php';
 ?>
 <?php 
     if (!ifItIsMethod('get') && !isset($_GET['forgot'])) { 
+        // will find better solution later on the course
         //path without uniqid redirects to index immediately
         redirect('index');
     }
     
     if (ifItIsMethod('post')) { 
         
-        if (isset($_POST['email'])) {
+        if (isset($_POST['email'])) { 
             $email = $_POST['email'];
             $lenght = 50;
             $token = bin2hex(openssl_random_pseudo_bytes($lenght));
@@ -40,16 +41,18 @@
                     $mail->Port       = Config::SMTP_PORT;
                     $mail->SMTPAuth   = true;  
                     $mail->isHTML(true);
+                    $mail->CharSet = 'UTF-8';
+
 
                     $mail->setFrom('murat@phpcmsproject.com', 'Murat');
                     $mail->addAddress($email);
-                    $mail->Subject = 'Test email from PHP CMS Project';
-                    $mail->Body = '<h2>Email body </h2>';
-
+                    $mail->Subject = 'PHP CMS Project';
+                    $mail->Body = '<p> Please click to reset your password <a href="http://localhost/cms/reset.php?email='.$email.'&token='.$token.'">http://localhost/cms/reset.php?email='.$email.'&token='.$token.'</a</p>';
+                    
                     if ($mail->send()) {
-                        echo "IT WAS SENT";
+                        $emailSent = true;
                     } else {
-                        echo "NOT SENT";
+                        echo "Error occured while sending email.";
                     }
 
                 } 
@@ -70,27 +73,42 @@
                         <div class="text-center">
 
 
-            <h3><i class="fa fa-lock fa-4x"></i></h3>
-            <h2 class="text-center">Forgot Password?</h2>
-            <p>You can reset your password here.</p>
-            <div class="panel-body">
+                        <?php if(!isset( $emailSent)): ?>
 
-                <form id="register-form" role="form" autocomplete="off" class="form" method="post">
 
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                            <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
-                    </div>
+                                <h3><i class="fa fa-lock fa-4x"></i></h3>
+                                <h2 class="text-center">Forgot Password?</h2>
+                                <p>You can reset your password here.</p>
+                                <div class="panel-body">
 
-                    <input type="hidden" class="hide" name="token" id="token" value="">
-                </form>
 
-            </div><!-- Body-->
+
+
+                                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                                <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                        </div>
+
+                                        <input type="hidden" class="hide" name="token" id="token" value="">
+                                    </form>
+
+                                </div><!-- Body-->
+
+                            <?php else: ?>
+
+
+                                <h4>Please check your email</h4>
+
+
+                            <?php endIf; ?>
+
 
                         </div>
                     </div>

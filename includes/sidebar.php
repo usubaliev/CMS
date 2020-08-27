@@ -1,19 +1,21 @@
 <?php 
-// removed form action with values to respond new login/forgot password form
-
     if (ifItIsMethod('post')) {
+
+        // avoiding 'post's to interfere with each other
+        if (isset($_POST['login'])) {
             
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            login_user($_POST['username'], $_POST['password']);
-        } else {
-            redirect('index');
+            if (isset($_POST['username']) && isset($_POST['password'])) {
+                login_user($_POST['username'], $_POST['password']);
+            } else {
+                redirect('index');
+            }
         }
     }
 ?>
 <!-- Blog Sidebar Widgets Column -->
 <div class="col-md-4">
+    
     <!-- Blog Search Well -->
-  
     <div class="well">
         <h4>Blog Search</h4>
         <!-- search form - connected via search.php to DB -->

@@ -3,31 +3,41 @@
 //  R   -   Read
 //  U   -   Update
 //  D   -   Delete
- 
 
-// // HELPER FUNCTIONS - Exiting what we are doing, not going to return anything.
-function redirect($location){
-    header("Location:" . $location);
-    exit;  // more flexible instead of return
-}
-// HELPER FUNCTIONS - 
-function ifItIsMethod($method = NULL){
-    if ($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
-        return true;
+function currentUser(){
+    if (isset($_SESSION['username'])) {
+        return $_SESSION['username'];
     } 
     return false;
 }
-// HELPER FUNCTIONS - if a user already logged in
-function isLoggedIn(){
 
-    if (isset($_SESSION['user_role'])) {
+// // HELPER FUNCTIONS - Exiting what we are doing, not going to return anything.
+function redirect ($location) {
+    header("Location: " . $location);
+    exit;
+  }
+
+// HELPER FUNCTIONS - 
+function ifItIsMethod($method=null){
+
+    if($_SERVER['REQUEST_METHOD'] == strtoupper($method)){
         return true;
     }
     return false;
 }
+
+// HELPER FUNCTIONS - if a user already logged in
+function isLoggedIn(){
+
+    if(isset($_SESSION['user_role'])){
+        return true;
+    }
+    return false;
+}
+
 // HELPER FUNCTIONS - Checking if user logged in and redirect
-function checkIfUserIsLoggedInAndRedirect($redirectLocation = NULL){
-    if (isLoggedIn()) {
+function checkIfUserIsLoggedInAndRedirect($redirectLocation=null){
+    if(isLoggedIn()){
         redirect($redirectLocation);
     }
 }
@@ -206,7 +216,7 @@ function findAllCategories(){
 
 
         // Username exists
-        function email_exists($email){
+        function email_exists($email){ 
             global $connection;
 
             $query = "SELECT user_email FROM users WHERE user_email = '$email' ";
