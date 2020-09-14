@@ -1,6 +1,5 @@
+<?php include("delete_modal.php"); ?>
 <?php
-include("delete_modal.php");
-
 if (isset($_POST['checkBoxArray'])) {
 
         foreach ($_POST['checkBoxArray'] as $postValueID) {
@@ -141,7 +140,10 @@ if (isset($_POST['checkBoxArray'])) {
                 if ($post_status == 'published') {echo "<td class='text-center text-success'><i class='fa fa-circle fa-lg' title='Published'></td>";} 
                 else {echo "<td class='text-center text-info'><i class='fa fa-circle-o fa-lg' title='Draft'></td>";}
 
-                echo "<td class='text-center'><img width='100' src='../images/$post_image' alt='image' /></td>";
+                //echo "<td class='text-center'><img width='100' src='../images/$post_image' alt='image' /></td>";
+
+                echo "<td class='text-center'><img width='100' src='../images/" . imagePlaceholder($post_image) . "'" . "/></td>"; 
+                
                 echo "<td>{$category_title}</td>";
                 echo "<td style='font-size:11px;'>$post_tags</td>";
 

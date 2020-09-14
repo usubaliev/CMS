@@ -6,7 +6,6 @@
         redirect('index');
     } 
 
-
     if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM users WHERE token=?')) {
         mysqli_stmt_bind_param($stmt, "s", $_GET['token']);
     
@@ -81,10 +80,7 @@
                                     <input type="hidden" class="hide" name="token" id="token" value="">
                                 </form>
 
-                                </div><!-- Body-->
-
-                                
-
+                            </div><!-- Body-->
                         </div>
                     </div>
                 </div>

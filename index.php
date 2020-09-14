@@ -2,12 +2,11 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
+    //trigger_error("Some info",E_USER_ERROR);  This was for creating an error log file for xampp
 ?>
-    
     <?php include "includes/db.php"; ?>
     <?php include "includes/header.php"; ?>
     <?php include "includes/navigation.php"; ?>
-   
     
     <!-- Page Content -->
     <div class="container">
@@ -40,7 +39,7 @@
             // First get total count of posts - find_count with mysqli_num_rows
             //$post_query_count = "SELECT * FROM posts WHERE post_status = 'published' ";
             $find_count = mysqli_query($connection, $post_query_count);
-            $count = mysqli_num_rows($find_count);
+            $count = mysqli_num_rows($find_count); 
             
             //show NO POSTS message if post count less than 1
             if ($count < 1) {
@@ -73,7 +72,7 @@
                 <p class="lead">by <a href="authors/<?php echo $post_author?>/<?php echo $post_id; ?>"><?php echo $post_author ?></a></p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?></p>
                 <hr>
-                <a href="post/<?php echo $post_id; ?>"><img class="img-responsive" src="images/<?php echo $post_image;?>"alt=""></a>
+                <a href="post/<?php echo $post_id; ?>"><img class="img-responsive" src="images/<?php echo imagePlaceholder($post_image);?>"alt=""></a>
                 <hr>
                 <p><?php echo $post_content; ?></p>
                 <a class='btn btn-primary' href="post/<?php echo $post_id;?>">Read More <span class='glyphicon glyphicon-chevron-right'></span></a>
